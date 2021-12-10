@@ -17,6 +17,8 @@ services:
             CONTAINER_ROLE: 'app'
         networks:
             - secret_santa
+        labels:
+            - "traefik.enable=false"
         depends_on:
             - mysql
             - redis
@@ -37,7 +39,7 @@ services:
             - "traefik.http.routers.santa.rule=Host(`santa.cativo.dev`)"
             - "traefik.http.routers.santa.entrypoints=websecure"
             - "traefik.http.routers.santa.service=santa"
-            - "traefik.http.services.santa.loadbalancer.server.port=8888"
+            - "traefik.http.services.santa.loadbalancer.server.port=80"
             - "traefik.http.routers.santa.tls.certresolver=lets-encrypt"
             - "traefik.http.routers.santa.tls=true"
             - "traefik.docker.network=web"
@@ -59,6 +61,8 @@ services:
             - 'santa_mysql:/var/lib/mysql'
         networks:
             - secret_santa
+        labels:
+            - "traefik.enable=false"
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
@@ -72,6 +76,8 @@ services:
             - 'santa_redis:/data'
         networks:
             - secret_santa
+        labels:
+            - "traefik.enable=false"
         healthcheck:
             test: ["CMD", "redis-cli", "ping"]
             retries: 3
@@ -81,6 +87,8 @@ services:
         ports:
             - '${FORWARD_MAILHOG_PORT:-1025}:1025'
             - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
+        labels:
+            - "traefik.enable=false"
         networks:
             - secret_santa
 networks:
