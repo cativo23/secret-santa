@@ -16,6 +16,7 @@ services:
         environment:
             CONTAINER_ROLE: 'app'
         networks:
+            - web
             - secret_santa
         labels:
             - "traefik.enable=true"
