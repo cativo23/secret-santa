@@ -17,6 +17,15 @@ services:
             CONTAINER_ROLE: 'app'
         networks:
             - secret_santa
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.santa.rule=Host(`santa.cativo.dev`)"
+            - "traefik.http.routers.santa.entrypoints=websecure"
+            - "traefik.http.routers.santa.service=santa"
+            - "traefik.http.services.santa.loadbalancer.server.port=8888"
+            - "traefik.http.routers.santa.tls.certresolver=lets-encrypt"
+            - "traefik.http.routers.santa.tls=true"
+            - "traefik.docker.network=web"
         depends_on:
             - mysql
             - redis
