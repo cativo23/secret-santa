@@ -86,6 +86,8 @@ services:
 networks:
     secret_santa:
         driver: bridge
+    web:
+        external: true
 volumes:
     santa_mysql:
         driver: local
