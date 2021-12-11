@@ -1,5 +1,5 @@
 #!/bin/bash
-php artisan migrate
+php artisan migrate --force
 php artisan optimize
 
 supervisord -n -c /etc/supervisord.conf
