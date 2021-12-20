@@ -7,6 +7,7 @@ use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use Auth;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -46,7 +47,9 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request): RedirectResponse
     {
+        $user = Auth::user();
         $saved = Group::create($request->validated());
+        $saved->users()->attach($user);
         return redirect()->route('groups.index')->with('success', 'Grupo ' . $saved->name . ' Creado.');
     }
 
