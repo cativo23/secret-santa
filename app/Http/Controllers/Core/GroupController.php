@@ -20,8 +20,8 @@ class GroupController extends Controller
     {
         $user = \Auth::user();
 
-        if (!$user?->is_admin){
-            $groups =Group::whereHas('users', function ($query) use ($user){
+        if (!$user?->is_admin) {
+            $groups =Group::whereHas('users', function ($query) use ($user) {
                 $query->where('users.id', '=', $user->id);
             });
         } else {

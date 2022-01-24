@@ -20,7 +20,7 @@ class CreateGroupsTable extends Migration
             $table->text('description');
             $table->string('type');
             $table->decimal('gift_max_price', 12)->default(0.00);
-            $table->decimal('gift_min_price',12)->default(0.00);
+            $table->decimal('gift_min_price', 12)->default(0.00);
 
             $table->timestamps();
         });
